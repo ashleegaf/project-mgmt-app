@@ -7,17 +7,25 @@ import clsx from 'clsx';
 
 const icons = { Settings, User, Grid, Calendar };
 
-const SideBarLink = ({ link }) => {
+export interface SideBarLinkProps {
+  link: {
+    label: string;
+    icon: keyof typeof icons;
+    path: string;
+  };
+}
+
+const SideBarLink = ({ link }: SideBarLinkProps) => {
   const pathname = usePathname();
 
   let isActive = false; // toggle when url path changes
-  if (pathname === link.link) {
+  if (pathname === link.path) {
     isActive = true;
   }
 
   const Icon = icons[link.icon];
   return (
-    <Link href={link.link}>
+    <Link href={link.path}>
       <Icon
         size={40}
         className={clsx(
